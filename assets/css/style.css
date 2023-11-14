@@ -23,7 +23,6 @@ body{
     display: grid;
     grid-template-columns: repeat(5,100px);
     gap: 20px;
-   
 }
 .card {
     height: 150px;
