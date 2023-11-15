@@ -6,10 +6,20 @@
     width: calc(100% - 2rem);
     font-size: 3rem;
  }
+ #nivel{
+    color: white;
+    position: absolute;
+    padding: 1rem;
+    text-align: center;
+    width: calc(100% - 2rem);
+    font-size: 3rem;
+    margin-top: 5rem;
+ }
 body{
     margin: 0;
     overflow: hidden;
-    background-color: black;
+    background: black;
+    position: relative;
 }
 .container{
     display: flex;
@@ -44,6 +54,7 @@ body{
     position: absolute;
     backface-visibility: hidden;
     pointer-events: none;
+    z-index: 8;
  }
 .card .back {
     background-image: url("https://orig10.deviantart.net/69f2/f/2016/289/4/1/ygo_card_backing__final__by_icycatelf-dal6wsb.png");
@@ -54,4 +65,103 @@ body{
     color: black;
     font-size: 6rem;
     background-size: 100%;
+}
+.luz{
+    width: 1px;
+    height: 1px;
+    background: yellow;
+    z-index: -1;
+
+    position: absolute;
+    bottom: -150px;
+    left: 5%;
+
+    animation: fondo 3s linear infinite;
+}
+.luz:nth-child(1){
+    left: 10%;
+    box-shadow: 0px 0px 11px 9px yellow;
+
+    animation-duration: 3s;
+    animation-delay: 1s;
+}
+.luz:nth-child(2){
+    left: 20%;
+    box-shadow: 0px 0px 11px 9px cyan;
+
+    animation-duration: 2s;
+    animation-delay: 3s;
+}
+.luz:nth-child(3){
+    left: 30%;
+    box-shadow: 0px 0px 11px 9px cyan;
+
+    animation-duration: 2s;
+    animation-delay: 2s;
+}
+.luz:nth-child(4){
+    left: 40%;
+    box-shadow: 0px 0px 11px 9px yellow;
+
+    animation-duration: 3s;
+    animation-delay: 2s;
+}
+.luz:nth-child(5){
+    left: 50%;
+    box-shadow: 0px 0px 11px 9px yellow;
+
+    animation-duration: 3s;
+    animation-delay: 0s;
+}
+.luz:nth-child(6){
+    left: 60%;
+    box-shadow: 0px 0px 11px 9px cyan;
+
+    animation-duration: 2s;
+    animation-delay: 1s;
+}
+.luz:nth-child(7){
+    left: 70%;
+    box-shadow: 0px 0px 11px 9px cyan;
+
+    animation-duration: 3s;
+    animation-delay: 3s;
+}
+.luz:nth-child(8){
+    left: 80%;
+    box-shadow: 0px 0px 11px 9px yellow;
+
+    animation-duration: 2s;
+    animation-delay: 0s;
+}
+.luz:nth-child(9){
+    left: 90%;
+    box-shadow: 0px 0px 11px 9px cyan;
+
+    animation-duration: 2s;
+    animation-delay: 2s;
+}
+.luz:nth-child(10){
+    left: 100%;
+    box-shadow: 0px 0px 11px 9px yellow;
+
+    animation-duration: 2s;
+    animation-delay: 0s;
+}
+@keyframes fondo {
+    0%{
+        bottom: 0;
+        opacity: 0;
+    }
+    30%{
+        transform: translateX(300px);
+    }
+    50%{
+        opacity: .4;
+    }
+    100%{
+        bottom: 100vh;
+        opacity: 0;
+    }
+    
 }
