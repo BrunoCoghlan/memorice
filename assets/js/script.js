@@ -1,8 +1,8 @@
 
 const game = document.querySelector(".game");
 const card = document.querySelector(".card");
-
-const deck = [];
+let level = 3;
+let deck = [];
 
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -14,7 +14,7 @@ function shuffleArray(array) {
 
 function createCard(yugiJSON) {
     const randomIndex = Math.floor(Math.random() * yugiJSON.data.length);
-    const image = yugiJSON.data[randomIndex].card_images[0].image_url_small;
+    const image = yugiJSON.data[Math.min(randomIndex, yugiJSON.data.length-1)].card_images[0].image_url_small;
     const newCard = document.createElement("div");
     newCard.classList.add("card");
     newCard.setAttribute('index', randomIndex);
@@ -22,6 +22,7 @@ function createCard(yugiJSON) {
     newCard.innerHTML += `<div class="back"></div>`;
     newCard.innerHTML += `<div class="front" style="background-image: url(${image})"></div>`;
     deck.push(newCard);
+    
 
     //Se agrega la carta "hermana"
     const duplicatedCard = newCard.cloneNode(true);
@@ -32,7 +33,7 @@ function getActiveCards() {
     return document.querySelectorAll(".card.active[unmatched]");
 }
 
-function cardClick(card) {
+function cardClick(card, yugiJSON) {
     // Si ya se hizo match de esta carta ignorar el click
     const isUnmatched = card.getAttribute("unmatched");
     if (!isUnmatched) return;
@@ -53,6 +54,10 @@ function cardClick(card) {
                     updatedSelectedCards.forEach(card => {
                         card.removeEventListener("click", cardClick);
                         card.removeAttribute("unmatched");
+                        const unmatched = document.querySelectorAll('[unmatched]').length;
+                        if(unmatched == 0){
+                            nextLevel(yugiJSON);
+                        }
                     });
                 // Si no coinciden se les quita la clase "active"
                 } else {
@@ -64,9 +69,17 @@ function cardClick(card) {
         }
     }
 }
-
+function nextLevel(yugiJSON){
+    reset()
+    level++
+    initGame(yugiJSON)
+}
+function reset(){
+    document.querySelectorAll('.card').forEach(card => card.remove())
+    deck = [];
+}
 function initGame(yugiJSON) {
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < level; i++) {
         createCard(yugiJSON);
     }
     for (const card of shuffleArray(deck)) {
@@ -74,7 +87,7 @@ function initGame(yugiJSON) {
     }
 
     document.querySelectorAll(".card").forEach(card => {
-        card.addEventListener("click", () => cardClick(card));
+        card.addEventListener("click", () => cardClick(card, yugiJSON));
     });
 }
 
