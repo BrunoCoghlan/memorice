@@ -1,7 +1,11 @@
 
 const game = document.querySelector(".game");
 const card = document.querySelector(".card");
-let level = 3;
+const vidas = document.querySelector("#vidas");
+const nivel = document.querySelector("#nivel");
+
+let stats = 10;
+let level = 2;
 let deck = [];
 
 function shuffleArray(array) {
@@ -62,16 +66,30 @@ function cardClick(card, yugiJSON) {
                 // Si no coinciden se les quita la clase "active"
                 } else {
                     updatedSelectedCards.forEach(card => {
-                        card.classList.remove("active");
+                        card.classList.remove("active");   
                     })
+                    // restar intentos con else de unmatched
+                    stats--
+                    vidas.innerHTML = `${stats} vidas`;
+                    if(stats === 0){
+                        reset()
+                        stats = 10;
+                        vidas.innerHTML = `${stats} vidas`;
+                        level = 2;
+                        nivel.innerHTML = `Nivel ${level-1}`;
+                        initGame(yugiJSON)
+                    }
                 }
             }, 300);
         }
     }
 }
+
 function nextLevel(yugiJSON){
-    reset()
+    reset();
     level++
+    nivel.innerHTML = `Nivel ${level-1}`;
+    console.log(nivel);
     initGame(yugiJSON)
 }
 function reset(){
