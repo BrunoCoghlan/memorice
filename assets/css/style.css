@@ -52,7 +52,8 @@ body {
 }
 .card .back {
     background-image: url("../images/yugiback.jpg");
-    background-size: 100%;
+    background-size: cover;
+    
 }
 .card .front {
     transform: rotateY(180deg);
