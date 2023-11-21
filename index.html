@@ -5,17 +5,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./assets/css/style.css">
+  <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
   <title>Memorice</title>
 </head>
 <body>
-  
-  <div id="vidas">10 vidas</div>
-  <div id="nivel">Nivel <span id="nivel">1</span></div>
-  <div class="container">
-    <div class="game">
-      <!--  dificultad de juego, cantidad de cartas -->
-     
-
+  <div id="menu-box">
+    <button onclick="selectGameModeListener('normal')">Normal</button>
+    <button onclick="selectGameModeListener('survival')">Survival</button>
+    <button  onclick="selectGameModeListener('timeattack')">Time Attack</button>
+  </div>
+  <div id ="game-box" class="d-none">
+    <div id="vidas"></div>
+    <div id="nivel"></div>
+    <div class="container">
+      <div class="game">
+      </div>
     </div>
   </div>
 
