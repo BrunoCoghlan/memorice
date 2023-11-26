@@ -10,11 +10,46 @@
 </head>
 <body>
   <div id="menu-box">
-    <button onclick="selectGameModeListener('normal')">Normal</button>
-    <button onclick="selectGameModeListener('survival')">Survival</button>
-    <button  onclick="selectGameModeListener('timeattack')">Time Attack</button>
+    <div class="leaderboard">
+      <h2>Mejores Puntajes</h2>
+      <h3>Modo Normal</h3>
+      <table aria-label="modo normal">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Puntaje</th>
+          </tr>
+        </thead>
+        <tbody id="leaderboard-table-normal"></tbody>
+      </table>
+      <h3>Modo Survival</h3>
+      <table aria-label="modo survival">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Puntaje</th>
+          </tr>
+        </thead>
+        <tbody id="leaderboard-table-survival"></tbody>
+      </table>
+      <h3>Modo Time Attack</h3>
+      <table aria-label="modo time attack">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Puntaje</th>
+          </tr>
+        </thead>
+        <tbody id="leaderboard-table-time-attack"></tbody>
+      </table>
+    </div>
+    <div class="button-box">
+      <button onclick="selectGameModeListener('normal')">Normal</button>
+      <button onclick="selectGameModeListener('survival')">Survival</button>
+      <button onclick="selectGameModeListener('timeattack')">Time Attack</button>
+    </div>
   </div>
-  <div id ="game-box" class="d-none">
+  <div id="game-box" class="d-none">
     <div id="vidas"></div>
     <div id="nivel"></div>
     <div class="container">
@@ -23,7 +58,8 @@
     </div>
   </div>
 
-
+<script src="./assets/js/pocketbase.umd.js"></script>
+<script src="./assets/js/leaderboard.js"></script>
 <script src="./assets/js/script.js"></script>
 </body>
 </html>

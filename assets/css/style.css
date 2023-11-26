@@ -67,15 +67,33 @@ body {
 }
 
 #menu-box {
-    display: flex;
-    gap: 16px;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     height: 100dvh;
-    align-items: center;
-    flex-direction: column;
+    color: white;
     button {
         height: 100px;
         width: 200px;
         font-size: 30px;
     }
+}
+
+.button-box {
+    justify-content: center;
+    gap: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.leaderboard {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+table,td,tr,th {
+    text-align: center;
+    border: 1px solid white;
 }

@@ -5,6 +5,11 @@ const nivel = document.querySelector("#nivel");
 const menuBox = document.querySelector("#menu-box");
 const gameBox = document.querySelector("#game-box");
 
+// Leaderboard
+const leaderBoardTableNormal = document.querySelector("#leaderboard-table-normal");
+const leaderBoardTableSurvival = document.querySelector("#leaderboard-table-survival");
+const leaderBoardTableTimeAttack = document.querySelector("#leaderboard-table-time-attack");
+
 let stats = 10;
 let level = 2;
 let deck = [];
@@ -19,6 +24,12 @@ function shuffleArray(array) {
         [array[i], array[j]] = [array[j], array[i]];
     }
     return array;
+}
+
+function getActualGameMode() {
+    if (isSurvivalMode) return "survival";
+    if (isTimeAttackMode) return "timeAttack";
+    return "normal";
 }
 
 function createCard(yugiJSON) {
@@ -90,7 +101,8 @@ function cardClick(card, yugiJSON) {
     }
 }
 
-function gameOver() {
+async function gameOver() {
+    await LeaderBoard.saveScore(getActualGameMode(), level);
     reset();
     stats = 10;
     level = 2;
@@ -136,8 +148,17 @@ function initGame(yugiJSON) {
     });
 }
 
-function setMenuVisible(visible) {
+async function setMenuVisible(visible) {
     if (visible) {
+        // Obtener Mejores Puntajes
+        LeaderBoard.getLeaderBoard().then(scores => {
+            function genTableRow({name, score}) {
+                return `<tr><td>${name}</td><td>${score}</td></tr>`
+            }
+            leaderBoardTableNormal.innerHTML = scores.normal.map(genTableRow).join('');
+            leaderBoardTableSurvival.innerHTML = scores.survival.map(genTableRow).join('');
+            leaderBoardTableTimeAttack.innerHTML = scores.timeAttack.map(genTableRow).join('');
+        });
         isNormalMode = false;
         isSurvivalMode = false;
         isTimeAttackMode = false;
@@ -153,7 +174,7 @@ const promiseFetchYugiJSON = fetch("./assets/js/cardinfo.json").then(
     (response) => response.json()
 );
 
-function selectGameModeListener(modoDeJuego) {
+async function selectGameModeListener(modoDeJuego) {
     switch (modoDeJuego) {
         case "normal":
             isNormalMode = true;
@@ -182,5 +203,8 @@ function selectGameModeListener(modoDeJuego) {
             }
         }, 1000);
     }
-    promiseFetchYugiJSON.then((yugiJSON) => initGame(yugiJSON));
+    const yugiJSON = await promiseFetchYugiJSON;
+    initGame(yugiJSON);
 }
+
+setMenuVisible(true);
